@@ -4,21 +4,20 @@ package com.gator;
  * Created by Wally Haven on 10/29/2019.
  */
 class Data {
-    private String date;
-    private long amount;
-    private int  result1;
-    private int  result2;
-    private int  result3;
+    private final String date;
+    private final String amount;
+    private final int  draw;
+    private final int  result1;
+    private final int  result2;
+    private final int  result3;
+    private final int  result4;
+    private final int  result5;
+    private final int  result6;
 
-    private int  result4;
-    private int  result5;
-    private int  result6;
-
-    Data() {}
-
-    Data(String date, long amount, int result1, int result2, int result3, int result4, int result5, int result6) {
+    Data(String date, String amount, int draw, int result1, int result2, int result3, int result4, int result5, int result6) {
         this.date = date;
         this.amount = amount;
+        this.draw = draw;
         this.result1 = result1;
         this.result2 = result2;
         this.result3 = result3;
@@ -31,8 +30,12 @@ class Data {
         return date;
     }
 
-    public long getAmount() {
+    public String getAmount() {
         return amount;
+    }
+
+    public int getDraw() {
+        return draw;
     }
 
     public int getResult1() {
@@ -59,35 +62,4 @@ class Data {
         return result6;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setAmount(long amount) {
-        this.amount = amount;
-    }
-
-    public void setResult1(int result1) {
-        this.result1 = result1;
-    }
-
-    public void setResult2(int result2) {
-        this.result2 = result2;
-    }
-
-    public void setResult3(int result3) {
-        this.result3 = result3;
-    }
-
-    public void setResult4(int result4) {
-        this.result4 = result4;
-    }
-
-    public void setResult5(int result5) {
-        this.result5 = result5;
-    }
-
-    public void setResult6(int result6) {
-        this.result6 = result6;
-    }
 }
