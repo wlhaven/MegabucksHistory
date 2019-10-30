@@ -23,7 +23,7 @@ class ReadData {
     }
 
 
-    List getData(String fileName) {
+    ArrayList<Data> getData(String fileName) {
         ArrayList<Data> results = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), UTF_8))) {
             String line;

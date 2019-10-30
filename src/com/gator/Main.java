@@ -1,15 +1,12 @@
 package com.gator;
 
-import java.util.List;
-
 class Main {
 
     public static void main(String[] args) {
-        // write your code here
         int count = 0;
         var readData = new ReadData();
         String filename = readData.getFileInfo();
-        List<Data> resultsList= readData.getData(filename);
+        var resultsList = readData.getData(filename);
         var db = new Database();
         db.connect();
         for (Data results : resultsList) {
