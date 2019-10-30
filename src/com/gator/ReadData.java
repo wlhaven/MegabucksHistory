@@ -30,7 +30,7 @@ class ReadData {
             while ((line = br.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(line);
                 String date = st.nextToken(" ");
-                String amount = st.nextToken(" ").replaceAll("[.$|,;'?]", "");
+                String jackpot= st.nextToken(" ").replaceAll("[.$|,;'?]", "");
                 int draw = Integer.parseInt(st.nextToken(" "));
                 int result1 = Integer.parseInt(st.nextToken(" "));
                 int result2 = Integer.parseInt(st.nextToken(" "));
@@ -38,7 +38,7 @@ class ReadData {
                 int result4 = Integer.parseInt(st.nextToken(" "));
                 int result5 = Integer.parseInt(st.nextToken(" "));
                 int result6 = Integer.parseInt(st.nextToken(" "));
-                Data loadData = new Data(date, amount, draw, result1, result2, result3, result4, result5, result6);
+                Data loadData = new Data(date, jackpot, draw, result1, result2, result3, result4, result5, result6);
                 results.add(loadData);
             }
         } catch (FileNotFoundException ex) {

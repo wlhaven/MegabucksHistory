@@ -5,8 +5,8 @@ package com.gator;
  */
 class Data {
     private final String date;
-    private final String amount;
-    private final int  draw;
+    private final String jackpot;
+    private final int draw;
     private final int  result1;
     private final int  result2;
     private final int  result3;
@@ -14,9 +14,9 @@ class Data {
     private final int  result5;
     private final int  result6;
 
-    Data(String date, String amount, int draw, int result1, int result2, int result3, int result4, int result5, int result6) {
+    Data(String date, String jackpot, int draw, int result1, int result2, int result3, int result4, int result5, int result6) {
         this.date = date;
-        this.amount = amount;
+        this.jackpot = jackpot;
         this.draw = draw;
         this.result1 = result1;
         this.result2 = result2;
@@ -30,8 +30,8 @@ class Data {
         return date;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getJackpot() {
+        return jackpot;
     }
 
     public int getDraw() {
