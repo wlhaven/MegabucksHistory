@@ -63,7 +63,6 @@ class Database {
         }
     }
 
-
    void insertResults(String Date, String Jackpot,  int Draw, int result1, int result2, int result3, int result4, int result5, int result6) {
         try {
             PreparedStatement itemQuery = mConnection.prepareStatement(INSERT_RESULTS_SQL);

@@ -22,7 +22,6 @@ class ReadData {
         return fileName;
     }
 
-
     ArrayList<Data> getData(String fileName) {
         ArrayList<Data> results = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), UTF_8))) {
