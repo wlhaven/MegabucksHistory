@@ -10,8 +10,9 @@ class Main {
         var db = new Database();
         db.connect();
         for (Data results : resultsList) {
-            db.insertResults(results.getDate(), results.getJackpot(), results.getDraw(), results.getResult1(), results.getResult2(),
-                    results.getResult3(), results.getResult4(), results.getResult5(), results.getResult6(), results.getWinner());
+            db.insertResults(results.getDate(), results.getJackpot(), results.getDraw(), results.getResult1(),
+                    results.getResult2(), results.getResult3(), results.getResult4(), results.getResult5(),
+                    results.getResult6(), results.getWinner());
             count++;
         }
         System.out.println("number of rows inserted = " + count);
