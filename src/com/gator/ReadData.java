@@ -37,7 +37,8 @@ class ReadData {
                 int result4 = Integer.parseInt(st.nextToken(" "));
                 int result5 = Integer.parseInt(st.nextToken(" "));
                 int result6 = Integer.parseInt(st.nextToken(" "));
-                Data loadData = new Data(date, jackpot, draw, result1, result2, result3, result4, result5, result6);
+                String winner  = st.nextToken(" ");
+                Data loadData = new Data(date, jackpot, draw, result1, result2, result3, result4, result5, result6, winner);
                 results.add(loadData);
             }
         } catch (FileNotFoundException ex) {

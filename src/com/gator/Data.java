@@ -14,7 +14,11 @@ class Data {
     private final int  result5;
     private final int  result6;
 
-    Data(String date, String jackpot, int draw, int result1, int result2, int result3, int result4, int result5, int result6) {
+
+
+    private final String winner;
+
+    Data(String date, String jackpot, int draw, int result1, int result2, int result3, int result4, int result5, int result6, String winner) {
         this.date = date;
         this.jackpot = jackpot;
         this.draw = draw;
@@ -24,42 +28,45 @@ class Data {
         this.result4 = result4;
         this.result5 = result5;
         this.result6 = result6;
+        this.winner = winner;
     }
 
-    public String getDate() {
+    String getDate() {
         return date;
     }
 
-    public String getJackpot() {
+    String getJackpot() {
         return jackpot;
     }
 
-    public int getDraw() {
+    int getDraw() {
         return draw;
     }
 
-    public int getResult1() {
+    int getResult1() {
         return result1;
     }
 
-    public int getResult2() {
+    int getResult2() {
         return result2;
     }
 
-    public int getResult3() {
+    int getResult3() {
         return result3;
     }
 
-    public int getResult4() {
+    int getResult4() {
         return result4;
     }
 
-    public int getResult5() {
+    int getResult5() {
         return result5;
     }
 
-    public int getResult6() {
+    int getResult6() {
         return result6;
     }
+
+    String getWinner() { return winner; }
 
 }

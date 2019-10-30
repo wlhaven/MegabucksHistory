@@ -15,8 +15,8 @@ class Database {
     private Connection mConnection = null;
     private final Properties prop = new Properties();
     private static final String INSERT_RESULTS_SQL =
-            "INSERT INTO History(Date, Jackpot, Draw, Result1, Result2, Result3, Result4, Result5, Result6)\n" +
-                    "VALUES(convert(Date,?, 101),?,?,?,?,?,?,?,?);";
+            "INSERT INTO History(Date, Jackpot, Draw, Result1, Result2, Result3, Result4, Result5, Result6, Winner)\n" +
+                    "VALUES(convert(Date,?, 101),?,?,?,?,?,?,?,?,?);";
 
     Database() {
         getConnectionInfo();
@@ -63,7 +63,7 @@ class Database {
         }
     }
 
-   void insertResults(String Date, String Jackpot,  int Draw, int result1, int result2, int result3, int result4, int result5, int result6) {
+   void insertResults(String Date, String Jackpot,  int Draw, int result1, int result2, int result3, int result4, int result5, int result6, String Winner) {
         try {
             PreparedStatement itemQuery = mConnection.prepareStatement(INSERT_RESULTS_SQL);
             itemQuery.setString(1, Date);
@@ -75,6 +75,7 @@ class Database {
             itemQuery.setInt(7, result4);
             itemQuery.setInt(8, result5);
             itemQuery.setInt(9, result6);
+            itemQuery.setString(10, Winner);
             itemQuery.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
