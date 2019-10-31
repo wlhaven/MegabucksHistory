@@ -1,5 +1,6 @@
 package com.gator;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Objects;
 import java.util.Properties;
@@ -63,12 +64,12 @@ class Database {
         }
     }
 
-   void insertResults(String Date, String Jackpot,  int Draw, int result1, int result2, int result3, int result4,
+   void insertResults(String Date, long Jackpot,  int Draw, int result1, int result2, int result3, int result4,
                       int result5, int result6, String Winner) {
         try {
             PreparedStatement itemQuery = mConnection.prepareStatement(INSERT_RESULTS_SQL);
             itemQuery.setString(1, Date);
-            itemQuery.setString(2, Jackpot);
+            itemQuery.setLong(2, Jackpot);
             itemQuery.setInt(3, Draw);
             itemQuery.setInt(4, result1);
             itemQuery.setInt(5, result2);

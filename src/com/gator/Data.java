@@ -5,7 +5,7 @@ package com.gator;
  */
 class Data {
     private final String date;
-    private final String jackpot;
+    private final long jackpot;
     private final int draw;
     private final int  result1;
     private final int  result2;
@@ -18,7 +18,7 @@ class Data {
 
     private final String winner;
 
-    Data(String date, String jackpot, int draw, int result1, int result2, int result3, int result4, int result5, int result6, String winner) {
+    Data(String date, long jackpot, int draw, int result1, int result2, int result3, int result4, int result5, int result6, String winner) {
         this.date = date;
         this.jackpot = jackpot;
         this.draw = draw;
@@ -35,7 +35,7 @@ class Data {
         return date;
     }
 
-    String getJackpot() {
+    long getJackpot() {
         return jackpot;
     }
 
