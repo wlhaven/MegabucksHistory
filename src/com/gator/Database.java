@@ -1,7 +1,7 @@
 package com.gator;
 
-import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Properties;
 import java.io.IOException;
@@ -64,8 +64,23 @@ class Database {
         }
     }
 
-   void insertResults(String Date, long Jackpot,  int Draw, int result1, int result2, int result3, int result4,
-                      int result5, int result6, String Winner) {
+    int  SendData (ArrayList<Data> resultsList) {
+       int count = 0;
+
+        for (Data results  : resultsList) {
+            boolean success = insertResults(results.getDate(), results.getJackpot(), results.getDraw(), results.getResult1(),
+                    results.getResult2(), results.getResult3(), results.getResult4(), results.getResult5(),
+                    results.getResult6(), results.getWinner());
+            if (!success) {
+               break;
+            }
+            count++;
+        }
+       return count;
+    }
+
+  private boolean insertResults(String Date, long Jackpot, int Draw, int result1, int result2, int result3, int result4,
+                                int result5, int result6, String Winner) {
         try {
             PreparedStatement itemQuery = mConnection.prepareStatement(INSERT_RESULTS_SQL);
             itemQuery.setString(1, Date);
@@ -82,7 +97,9 @@ class Database {
         } catch (SQLException e) {
             e.printStackTrace();
             close();
+            return false;
         }
-    }
+       return true;
+   }
 }
 

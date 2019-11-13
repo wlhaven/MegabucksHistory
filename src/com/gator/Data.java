@@ -5,17 +5,14 @@ package com.gator;
  */
 class Data {
     private final String date;
-    private final long jackpot;
-    private final int draw;
-    private final int  result1;
-    private final int  result2;
-    private final int  result3;
-    private final int  result4;
-    private final int  result5;
-    private final int  result6;
-
-
-
+    private final long   jackpot;
+    private final int    draw;
+    private final int    result1;
+    private final int    result2;
+    private final int    result3;
+    private final int    result4;
+    private final int    result5;
+    private final int    result6;
     private final String winner;
 
     Data(String date, long jackpot, int draw, int result1, int result2, int result3, int result4, int result5, int result6, String winner) {
