@@ -15,9 +15,10 @@ class Database {
     private  String url;
     private Connection mConnection = null;
     private final Properties prop = new Properties();
-    private static final String INSERT_RESULTS_SQL =
-            "INSERT INTO History(Date, Jackpot, Draw, Result1, Result2, Result3, Result4, Result5, Result6, Winner)\n" +
-                    "VALUES(convert(Date,?, 101),?,?,?,?,?,?,?,?,?);";
+//    private static final String INSERT_RESULTS_SQL =
+//            "INSERT INTO History(Date, Jackpot, Draw, Result1, Result2, Result3, Result4, Result5, Result6, Winner)\n" +
+//                    "VALUES(convert(Date,?, 101),?,?,?,?,?,?,?,?,?);";
+    private static final String INSERT_RESULTS_SQL = "{ call spInsertData(?,?,?,?,?,?,?,?,?,?) } ";
 
     Database() {
         getConnectionInfo();
@@ -82,7 +83,7 @@ class Database {
   private boolean insertResults(String Date, long Jackpot, int Draw, int result1, int result2, int result3, int result4,
                                 int result5, int result6, String Winner) {
         try {
-            PreparedStatement itemQuery = mConnection.prepareStatement(INSERT_RESULTS_SQL);
+            CallableStatement itemQuery = mConnection.prepareCall(INSERT_RESULTS_SQL);
             itemQuery.setString(1, Date);
             itemQuery.setLong(2, Jackpot);
             itemQuery.setInt(3, Draw);
