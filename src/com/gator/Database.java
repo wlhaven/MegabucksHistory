@@ -15,9 +15,6 @@ class Database {
     private  String url;
     private Connection mConnection = null;
     private final Properties prop = new Properties();
-//    private static final String INSERT_RESULTS_SQL =
-//            "INSERT INTO History(Date, Jackpot, Draw, Result1, Result2, Result3, Result4, Result5, Result6, Winner)\n" +
-//                    "VALUES(convert(Date,?, 101),?,?,?,?,?,?,?,?,?);";
     private static final String INSERT_RESULTS_SQL = "{ call spInsertData(?,?,?,?,?,?,?,?,?,?) } ";
 
     Database() {
