@@ -27,20 +27,30 @@ class ReadData {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
-                StringTokenizer st = new StringTokenizer(line);
-                String date = st.nextToken(" ");
-                long jackpot= Long.parseLong(st.nextToken(" ").replaceAll("[.$|,;'?]", ""));
-                int draw = Integer.parseInt(st.nextToken(" "));
-                int result1 = Integer.parseInt(st.nextToken(" "));
-                int result2 = Integer.parseInt(st.nextToken(" "));
-                int result3 = Integer.parseInt(st.nextToken(" "));
-                int result4 = Integer.parseInt(st.nextToken(" "));
-                int result5 = Integer.parseInt(st.nextToken(" "));
-                int result6 = Integer.parseInt(st.nextToken(" "));
-                String winner  = st.nextToken(" ").toUpperCase();
-                Data loadData = new Data(date, jackpot, draw, result1, result2, result3, result4, result5,
-                                result6, winner);
-                results.add(loadData);
+                try {
+                    StringTokenizer st = new StringTokenizer(line);
+                    String date = st.nextToken(" ");
+                    long jackpot = Long.parseLong(st.nextToken(" ").replaceAll("[.$|,;'?]", ""));
+                    int draw = Integer.parseInt(st.nextToken(" "));
+                    int result1 = Integer.parseInt(st.nextToken(" "));
+                    int result2 = Integer.parseInt(st.nextToken(" "));
+                    int result3 = Integer.parseInt(st.nextToken(" "));
+                    int result4 = Integer.parseInt(st.nextToken(" "));
+                    int result5 = Integer.parseInt(st.nextToken(" "));
+                    int result6 = Integer.parseInt(st.nextToken(" "));
+                    String winner = st.nextToken(" ").toUpperCase();
+                    Data loadData = new Data(date, jackpot, draw, result1, result2, result3, result4, result5,
+                            result6, winner);
+                    results.add(loadData);
+                } catch (NoSuchElementException ex) {
+                    ex.printStackTrace();
+                    System.out.println("Exception parsing data: " + line);
+                    System.exit(0);
+                } catch(NumberFormatException ex) {
+                    ex.printStackTrace();
+                    System.out.println("Exception parsing data: " + line);
+                    System.exit(0);
+                }
             }
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open input file '" + fileName + "'" + "\nProgram will close.");
