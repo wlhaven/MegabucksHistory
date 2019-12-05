@@ -23,7 +23,7 @@ class Database {
 
     private void getConnectionInfo() {
         try {
-            String filename = "resources/MegabucksSqlServer.properties";
+            String  filename = "resources/MegabucksSqlServer.properties";
             prop.load(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(filename)));
             url = prop.getProperty("database");
             userName = prop.getProperty("dbuser");

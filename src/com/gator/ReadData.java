@@ -42,11 +42,7 @@ class ReadData {
                     Data loadData = new Data(date, jackpot, draw, result1, result2, result3, result4, result5,
                             result6, winner);
                     results.add(loadData);
-                } catch (NoSuchElementException ex) {
-                    ex.printStackTrace();
-                    System.out.println("Exception parsing data: " + line);
-                    System.exit(0);
-                } catch(NumberFormatException ex) {
+                } catch (NoSuchElementException | NumberFormatException ex) {
                     ex.printStackTrace();
                     System.out.println("Exception parsing data: " + line);
                     System.exit(0);
