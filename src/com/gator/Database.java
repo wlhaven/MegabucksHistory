@@ -1,8 +1,8 @@
 package com.gator;
 
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Properties;
 import java.io.IOException;
 
@@ -22,9 +22,9 @@ class Database {
     }
 
     private void getConnectionInfo() {
-        try {
-            String  filename = "resources/MegabucksSqlServer.properties";
-            prop.load(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(filename)));
+        try (final InputStream stream =
+                     Main.class.getResourceAsStream("/resources/MegaBucksSqlServer.properties")) {
+            prop.load(stream);
             url = prop.getProperty("database");
             userName = prop.getProperty("dbuser");
             password = prop.getProperty("dbpassword");
