@@ -22,8 +22,7 @@ class Database {
     }
 
     private void getConnectionInfo() {
-        try (final InputStream stream =
-                     Main.class.getResourceAsStream("/resources/MegaBucksSqlServer.properties")) {
+        try (final InputStream stream = Main.class.getResourceAsStream("/MegabucksSqlServer.properties")) {
             prop.load(stream);
             url = prop.getProperty("database");
             userName = prop.getProperty("dbuser");
