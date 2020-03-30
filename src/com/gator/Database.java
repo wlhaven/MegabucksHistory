@@ -2,20 +2,21 @@ package com.gator;
 
 import java.io.InputStream;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Properties;
+import java.util.*;
 import java.io.IOException;
 
 /**
  * Created by Wally Haven on 10/29/2019.
  */
 class Database {
-    private  String userName;
-    private  String password;
-    private  String url;
+    private String userName;
+    private String password;
+    private String url;
     private Connection mConnection = null;
     private final Properties prop = new Properties();
     private static final String INSERT_RESULTS_SQL = "{ call spInsertData(?,?,?,?,?,?,?,?,?,?) } ";
+    private static final String GET_FREQUENCY_RESULTS = "{ call spGetWinFrequency(?) } ";
+    private static final String GET_WINNING_RESULTS = "{ call spGetWinners() } ";
 
     Database() {
         getConnectionInfo();
@@ -50,7 +51,7 @@ class Database {
     /**
      * This closes connection to database
      */
-   void close() {
+    void close() {
         if (mConnection != null) {
             System.out.println("Closing database connection.\n");
             try {
@@ -61,23 +62,23 @@ class Database {
         }
     }
 
-    int  SendData (ArrayList<Data> resultsList) {
-       int count = 0;
+    int SendData(ArrayList<Data> resultsList) {
+        int count = 0;
 
-        for (Data results  : resultsList) {
+        for (Data results : resultsList) {
             boolean success = insertResults(results.getDate(), results.getJackpot(), results.getDraw(), results.getResult1(),
                     results.getResult2(), results.getResult3(), results.getResult4(), results.getResult5(),
                     results.getResult6(), results.getWinner());
             if (!success) {
-               break;
+                break;
             }
             count++;
         }
-       return count;
+        return count;
     }
 
-  private boolean insertResults(String Date, long Jackpot, int Draw, int result1, int result2, int result3, int result4,
-                                int result5, int result6, String Winner) {
+    private boolean insertResults(String Date, long Jackpot, int Draw, int result1, int result2, int result3, int result4,
+                                  int result5, int result6, String Winner) {
         try {
             CallableStatement itemQuery = mConnection.prepareCall(INSERT_RESULTS_SQL);
             itemQuery.setString(1, Date);
@@ -96,7 +97,60 @@ class Database {
             close();
             return false;
         }
-       return true;
-   }
+        return true;
+    }
+
+    Map<Integer, ArrayList<WinRate>> FrequencyData() {
+        ArrayList<WinRate> winList = new ArrayList<>();
+        Map<Integer, ArrayList<WinRate>> map = new HashMap<>();
+
+        try {
+            for (int i = 1; i < 7; i++) {
+                WinRate rate;
+                CallableStatement itemQuery = mConnection.prepareCall(GET_FREQUENCY_RESULTS);
+                itemQuery.setInt(1, i);
+                ResultSet rs = itemQuery.executeQuery();
+                while (rs.next()) {
+                    rate = new WinRate(rs.getString(1), rs.getString(2));
+                    winList.add(rate);
+                }
+                var tempList = new ArrayList<>(winList);
+                winList.clear();
+                map.put(i, tempList);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            close();
+        }
+        return map;
+    }
+
+    ArrayList<Data> getWinners() {
+        ArrayList<Data> winnerList = new ArrayList<>();
+
+        try {
+            Data winners;
+            CallableStatement itemQuery = mConnection.prepareCall(GET_WINNING_RESULTS);
+            ResultSet rs = itemQuery.executeQuery();
+            while (rs.next()) {
+                winners = new Data(rs.getString(1),
+                        rs.getLong(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getInt(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getString(10));
+                winnerList.add(winners);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            close();
+        }
+
+        return winnerList;
+    }
 }
 
