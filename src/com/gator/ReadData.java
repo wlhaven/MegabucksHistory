@@ -49,8 +49,7 @@ class ReadData {
                 }
             }
         } catch (FileNotFoundException ex) {
-            System.out.println("Unable to open input file '" + fileName + "'" + "\nProgram will close.");
-            System.exit(0);
+            System.out.println("Unable to open input file '" + fileName + "'" + "\nReturning to main menu.");
         } catch (IOException ex) {
             System.out.println("Error reading file '" + fileName + "'");
         }
