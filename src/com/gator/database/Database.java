@@ -1,4 +1,7 @@
-package com.gator;
+package com.gator.database;
+
+import com.gator.businessLogic.Data;
+import com.gator.Main;
 
 import java.io.InputStream;
 import java.sql.*;
@@ -8,7 +11,7 @@ import java.io.IOException;
 /**
  * Created by Wally Haven on 10/29/2019.
  */
-class Database {
+public class Database {
     private String userName;
     private String password;
     private String url;
@@ -18,7 +21,7 @@ class Database {
     private static final String GET_FREQUENCY_RESULTS = "{ call spGetWinFrequency(?) } ";
     private static final String GET_WINNING_RESULTS = "{ call spGetWinners() } ";
 
-    Database() {
+    public Database() {
         getConnectionInfo();
     }
 
@@ -34,10 +37,7 @@ class Database {
         }
     }
 
-    /**
-     * This connects to database
-     */
-    void connect() {
+    public void connect() {
         if (mConnection != null)
             return;
         try {
@@ -51,7 +51,7 @@ class Database {
     /**
      * This closes connection to database
      */
-    void close() {
+    public void close() {
         if (mConnection != null) {
             System.out.println("Closing database connection.\n");
             try {
@@ -62,7 +62,7 @@ class Database {
         }
     }
 
-    int SendData(ArrayList<Data> resultsList) {
+    public int SendData(ArrayList<Data> resultsList) {
         int count = 0;
 
         for (Data results : resultsList) {
@@ -100,40 +100,34 @@ class Database {
         return true;
     }
 
-    Map<Integer, ArrayList<WinRate>> FrequencyData() {
-        ArrayList<WinRate> winList = new ArrayList<>();
-        Map<Integer, ArrayList<WinRate>> map = new HashMap<>();
-
+    public ArrayList<Object[]> FrequencyData() {
+        ArrayList<Object[]> winList = new ArrayList<>();
         try {
             for (int i = 1; i < 7; i++) {
-                WinRate rate;
                 CallableStatement itemQuery = mConnection.prepareCall(GET_FREQUENCY_RESULTS);
                 itemQuery.setInt(1, i);
                 ResultSet rs = itemQuery.executeQuery();
                 while (rs.next()) {
-                    rate = new WinRate(rs.getString(1), rs.getString(2));
+                    Object[] rate = {i, rs.getString(1), rs.getString(2)};
                     winList.add(rate);
                 }
-                var tempList = new ArrayList<>(winList);
-                winList.clear();
-                map.put(i, tempList);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             close();
         }
-        return map;
+        return winList;
     }
 
-    ArrayList<Data> getWinners() {
-        ArrayList<Data> winnerList = new ArrayList<>();
-
-        try {
-            Data winners;
-            CallableStatement itemQuery = mConnection.prepareCall(GET_WINNING_RESULTS);
-            ResultSet rs = itemQuery.executeQuery();
+    public ArrayList<Object[]> readTableData() {
+        ArrayList<Object[]> testData = new ArrayList<>();
+        try (
+                PreparedStatement stmt = mConnection.prepareStatement(GET_WINNING_RESULTS)
+        ) {
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                winners = new Data(rs.getString(1),
+                Object[] tableRow = {
+                        rs.getString(1),
                         rs.getLong(2),
                         rs.getInt(3),
                         rs.getInt(4),
@@ -142,15 +136,16 @@ class Database {
                         rs.getInt(7),
                         rs.getInt(8),
                         rs.getInt(9),
-                        rs.getString(10));
-                winnerList.add(winners);
+                        rs.getString(10)
+                };
+                testData.add(tableRow);
             }
         } catch (SQLException e) {
+            System.err.println("ERROR: " + e.getMessage());
             e.printStackTrace();
-            close();
         }
-
-        return winnerList;
+        return testData;
     }
+
 }
 

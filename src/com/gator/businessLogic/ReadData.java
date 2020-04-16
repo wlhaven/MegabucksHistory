@@ -1,28 +1,23 @@
-package com.gator;
+package com.gator.businessLogic;
+
+import com.gator.database.Database;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Created by Wally Haven on 10/29/2019.
  */
-class ReadData {
+public class ReadData {
 
-    ReadData() {
+    public ReadData() {
     }
 
-    String getFileInfo() {
-        String fileName;
-
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter the filename to read: ");
-        fileName = in.nextLine();
-        return fileName;
-    }
-
-    ArrayList<Data> getData(String fileName) {
+    public ArrayList<Data> getData(String fileName) {
         ArrayList<Data> results = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), UTF_8))) {
             String line;
@@ -55,4 +50,13 @@ class ReadData {
         }
         return results;
     }
+
+    public ArrayList<Object[]> WinningDraws()  {
+        var db = new Database();
+        db.connect();
+        ArrayList<Object[]> getList = db.readTableData();
+        db.close();
+        return getList;
+    }
+
 }
