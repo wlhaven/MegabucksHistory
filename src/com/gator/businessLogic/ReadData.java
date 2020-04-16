@@ -17,7 +17,7 @@ public class ReadData {
     public ReadData() {
     }
 
-    public ArrayList<Data> getData(String fileName) {
+    public ArrayList<Data> getData(File fileName) {
         ArrayList<Data> results = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), UTF_8))) {
             String line;

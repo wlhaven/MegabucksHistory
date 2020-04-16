@@ -12,12 +12,13 @@ import javax.swing.event.AncestorListener;
 import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
  * Created by Wally Haven on 3/30/2020.
  */
-public class MegabucksUI {
+public class MegabucksUI extends Component {
     private JPanel rootPanel;
     private JPanel tablePanel;
     private JPanel titlePanel;
@@ -43,11 +44,21 @@ public class MegabucksUI {
             JFrame frame = new JFrame();
             switch (reportID) {
                 case 1:
-                    String name = JOptionPane.showInputDialog(frame, "Enter the file name to read.");
+                    JFileChooser fileChooser = new JFileChooser();
+                    fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+                    int result = fileChooser.showOpenDialog(this);
+                    if (result == JFileChooser.APPROVE_OPTION) {
+                        File selectedFile = fileChooser.getSelectedFile();
+                        rowCount = InsertData(selectedFile);
+                        JOptionPane.showMessageDialog(frame, "Successfully Inserted " + rowCount + " rows into the database", "Success", JOptionPane.WARNING_MESSAGE);
+                        System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                    }
+
+                   /*String name = JOptionPane.showInputDialog(frame, "Enter the file name to read.");
                     if (name != null) {
                         rowCount = InsertData(name);
                         JOptionPane.showMessageDialog(frame, "Successfully Inserted " + rowCount + " rows into the database", "Success", JOptionPane.WARNING_MESSAGE);
-                    } else {
+                    }*/ else {
                         JOptionPane.showMessageDialog(frame, "Inserted " + rowCount + " rows into the database", "Alert", JOptionPane.WARNING_MESSAGE);
                         DefaultTableModel model = new DefaultTableModel();
                         resultsTable.setModel(model);
@@ -103,7 +114,7 @@ public class MegabucksUI {
         });
     }
 
-    public int InsertData(String filename) {
+    public int InsertData(File filename) {
         var totalRows = 0;
         var readData = new ReadData();
         var resultsList = readData.getData(filename);
