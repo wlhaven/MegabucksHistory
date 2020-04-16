@@ -82,7 +82,7 @@
                 <properties>
                   <autoscrolls value="true"/>
                   <background color="-328966"/>
-                  <minimumSize width="17" height="40"/>
+                  <minimumSize width="20" height="40"/>
                   <opaque value="false"/>
                   <verticalScrollBarPolicy value="20"/>
                   <visible value="true"/>

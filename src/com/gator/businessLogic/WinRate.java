@@ -9,7 +9,8 @@ import java.util.ArrayList;
  */
 public class WinRate {
 
-    public WinRate () { }
+    public WinRate() {
+    }
 
     public ArrayList<Object[]> GetWinRate() {
         var db = new Database();

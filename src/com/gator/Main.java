@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import static javax.swing.SwingUtilities.invokeLater;
 
-public class Main  extends JFrame {
+public class Main extends JFrame {
     private static JFrame uFrame = null;
 
     public static void createAndShowGUI() {
@@ -14,6 +14,7 @@ public class Main  extends JFrame {
         uFrame.setDefaultCloseOperation(uFrame.EXIT_ON_CLOSE);
         showReports();
     }
+
     public static void showReports() {
         uFrame.setTitle("Megabucks Reporting");
         uFrame.getContentPane().removeAll();

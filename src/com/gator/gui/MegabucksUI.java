@@ -47,8 +47,7 @@ public class MegabucksUI {
                     if (name != null) {
                         rowCount = InsertData(name);
                         JOptionPane.showMessageDialog(frame, "Successfully Inserted " + rowCount + " rows into the database", "Success", JOptionPane.WARNING_MESSAGE);
-                    }
-                    else {
+                    } else {
                         JOptionPane.showMessageDialog(frame, "Inserted " + rowCount + " rows into the database", "Alert", JOptionPane.WARNING_MESSAGE);
                         DefaultTableModel model = new DefaultTableModel();
                         resultsTable.setModel(model);
@@ -76,7 +75,6 @@ public class MegabucksUI {
                     resultsTable.setModel(summaryDefaultTableModel);
                     break;
                 case 4:
-                    //replace with MsgBox
                     System.out.println("Goodbye and have a wonderful day!");
                     JOptionPane.showMessageDialog(frame, "Goodbye and have a wonderful day!", "Alert", JOptionPane.INFORMATION_MESSAGE);
                     System.exit(0);
@@ -89,7 +87,6 @@ public class MegabucksUI {
             }
         });
 
-        // Set initial field to drop down list
         reportComboBox.addAncestorListener(new AncestorListener() {
             @Override
             public void ancestorAdded(AncestorEvent event) {
@@ -104,14 +101,11 @@ public class MegabucksUI {
             public void ancestorMoved(AncestorEvent event) {
             }
         });
-
     }
 
     public int InsertData(String filename) {
         var totalRows = 0;
         var readData = new ReadData();
-        //replace below with call to MsgBox to get filename
-        // String filename = readData.getFileInfo();
         var resultsList = readData.getData(filename);
         if (resultsList.size() != 0) {
             var db = new Database();
@@ -125,6 +119,7 @@ public class MegabucksUI {
 
     private void SetupComboBox() {
         ResultsDisplay resultsDisplay = new ResultsDisplay();
+
         DefaultTableModel myDefaultTableModel = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -132,7 +127,6 @@ public class MegabucksUI {
             }
         };
         myDefaultTableModel.setColumnIdentifiers(resultsDisplay.getReportColumnNames());
-
         String[] reportRows = resultsDisplay.getReportChoices();
 
         reportComboBox.setBackground(new Color(255, 255, 255));
@@ -146,6 +140,7 @@ public class MegabucksUI {
             reportComboBox.addItem(rows);
         }
     }
+
     private void SetupTables(JTable resultsTable, int reportNumber) {
         ResultsDisplay resultsDisplay = new ResultsDisplay();
         summaryDefaultTableModel = new DefaultTableModel() {
@@ -157,9 +152,9 @@ public class MegabucksUI {
         resultsTable.setModel(summaryDefaultTableModel);
         resultsTable.setCellSelectionEnabled(false);
         resultsTable.setFocusable(false);
-
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
         switch (reportNumber) {
             case 1:
             case 2:

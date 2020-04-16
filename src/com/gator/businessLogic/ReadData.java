@@ -51,12 +51,11 @@ public class ReadData {
         return results;
     }
 
-    public ArrayList<Object[]> WinningDraws()  {
+    public ArrayList<Object[]> WinningDraws() {
         var db = new Database();
         db.connect();
         ArrayList<Object[]> getList = db.readTableData();
         db.close();
         return getList;
     }
-
 }

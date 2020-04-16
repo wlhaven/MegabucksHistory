@@ -48,9 +48,6 @@ public class Database {
         }
     }
 
-    /**
-     * This closes connection to database
-     */
     public void close() {
         if (mConnection != null) {
             System.out.println("Closing database connection.\n");
@@ -146,6 +143,5 @@ public class Database {
         }
         return testData;
     }
-
 }
 
