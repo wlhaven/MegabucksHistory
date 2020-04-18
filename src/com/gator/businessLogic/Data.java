@@ -1,9 +1,9 @@
-package com.gator;
+package com.gator.businessLogic;
 
 /**
  * Created by Wally Haven on 10/29/2019.
  */
-class Data {
+public class Data {
     private final String date;
     private final long jackpot;
     private final int draw;
@@ -15,7 +15,7 @@ class Data {
     private final int result6;
     private final String winner;
 
-    Data(String date, long jackpot, int draw, int result1, int result2, int result3, int result4, int result5, int result6, String winner) {
+    public Data(String date, long jackpot, int draw, int result1, int result2, int result3, int result4, int result5, int result6, String winner) {
         this.date = date;
         this.jackpot = jackpot;
         this.draw = draw;
@@ -28,43 +28,43 @@ class Data {
         this.winner = winner;
     }
 
-    String getDate() {
+    public String getDate() {
         return date;
     }
 
-    long getJackpot() {
+    public long getJackpot() {
         return jackpot;
     }
 
-    int getDraw() {
+    public int getDraw() {
         return draw;
     }
 
-    int getResult1() {
+    public int getResult1() {
         return result1;
     }
 
-    int getResult2() {
+    public int getResult2() {
         return result2;
     }
 
-    int getResult3() {
+    public int getResult3() {
         return result3;
     }
 
-    int getResult4() {
+    public int getResult4() {
         return result4;
     }
 
-    int getResult5() {
+    public int getResult5() {
         return result5;
     }
 
-    int getResult6() {
+    public int getResult6() {
         return result6;
     }
 
-    String getWinner() { return winner; }
+    public String getWinner() { return winner; }
 
     @Override
     public String toString() {
