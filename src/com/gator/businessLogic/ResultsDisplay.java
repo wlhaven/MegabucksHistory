@@ -20,12 +20,11 @@ public class ResultsDisplay {
     }
 
     public String[] getReportChoices() {
-        String[] reportRows = {
+        return new String[]{
                 "Load History Data into the server",
                 "Get list of winning draws.",
                 "Get winning number frequency from History database.",
                 "Exit the program"};
-        return reportRows;
     }
 
     public int getWinRateColumnNumber() {

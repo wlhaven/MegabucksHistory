@@ -2,7 +2,6 @@ package com.gator.gui;
 
 import com.gator.businessLogic.ReadData;
 import com.gator.businessLogic.ResultsDisplay;
-import com.gator.businessLogic.WinRate;
 import com.gator.database.Database;
 
 import java.awt.*;
@@ -50,16 +49,12 @@ public class MegabucksUI extends Component {
                     if (result == JFileChooser.APPROVE_OPTION) {
                         File selectedFile = fileChooser.getSelectedFile();
                         rowCount = InsertData(selectedFile);
-                        JOptionPane.showMessageDialog(frame, "Successfully Inserted " + rowCount + " rows into the database", "Success", JOptionPane.WARNING_MESSAGE);
-                        System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-                    }
-
-                   /*String name = JOptionPane.showInputDialog(frame, "Enter the file name to read.");
-                    if (name != null) {
-                        rowCount = InsertData(name);
-                        JOptionPane.showMessageDialog(frame, "Successfully Inserted " + rowCount + " rows into the database", "Success", JOptionPane.WARNING_MESSAGE);
-                    }*/ else {
-                        JOptionPane.showMessageDialog(frame, "Inserted " + rowCount + " rows into the database", "Alert", JOptionPane.WARNING_MESSAGE);
+                        if (rowCount > 0) {
+                            JOptionPane.showMessageDialog(frame, "Successfully Inserted " + rowCount + " rows into the database", "Success", JOptionPane.WARNING_MESSAGE);
+                            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "ERROR: Inserted " + rowCount + " rows into the database", "Alert", JOptionPane.WARNING_MESSAGE);
                         DefaultTableModel model = new DefaultTableModel();
                         resultsTable.setModel(model);
                         resultsLabel.setText("");
@@ -76,7 +71,7 @@ public class MegabucksUI extends Component {
                     resultsTable.setModel(summaryDefaultTableModel);
                     break;
                 case 3:
-                    var rate = new WinRate();
+                    var rate = new ReadData();
                     ArrayList<Object[]> getRateList = rate.GetWinRate();
                     SetupTables(resultsTable, reportID);
                     for (Object[] row : getRateList) {

@@ -2,6 +2,7 @@ package com.gator.businessLogic;
 
 import com.gator.database.Database;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -13,8 +14,9 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Created by Wally Haven on 10/29/2019.
  */
 public class ReadData {
-
+    final JFrame frame;
     public ReadData() {
+        frame = new JFrame();
     }
 
     public ArrayList<Data> getData(File fileName) {
@@ -44,6 +46,7 @@ public class ReadData {
                 }
             }
         } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(frame, "ERROR: " + ex.getMessage(), "Alert", JOptionPane.ERROR_MESSAGE);
             System.out.println("Unable to open input file '" + fileName + "'" + "\nReturning to main menu.");
         } catch (IOException ex) {
             System.out.println("Error reading file '" + fileName + "'");
@@ -57,5 +60,13 @@ public class ReadData {
         ArrayList<Object[]> getList = db.readTableData();
         db.close();
         return getList;
+    }
+
+    public ArrayList<Object[]> GetWinRate() {
+        var db = new Database();
+        db.connect();
+        ArrayList<Object[]> map = db.FrequencyData();
+        db.close();
+        return map;
     }
 }

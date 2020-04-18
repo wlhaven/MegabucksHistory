@@ -3,6 +3,7 @@ package com.gator.database;
 import com.gator.businessLogic.Data;
 import com.gator.Main;
 
+import javax.swing.*;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.*;
@@ -90,7 +91,9 @@ public class Database {
             itemQuery.setString(10, Winner);
             itemQuery.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "ERROR: " + e.getMessage(), "Alert", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
             close();
             return false;
         }
