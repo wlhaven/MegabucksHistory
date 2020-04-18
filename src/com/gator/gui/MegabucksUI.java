@@ -43,6 +43,7 @@ public class MegabucksUI extends Component {
             JFrame frame = new JFrame();
             switch (reportID) {
                 case 1:
+                    clearTables("");
                     JFileChooser fileChooser = new JFileChooser();
                     fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
                     int result = fileChooser.showOpenDialog(this);
@@ -55,9 +56,8 @@ public class MegabucksUI extends Component {
                         }
                     } else {
                         JOptionPane.showMessageDialog(frame, "ERROR: Inserted " + rowCount + " rows into the database", "Alert", JOptionPane.WARNING_MESSAGE);
-                        DefaultTableModel model = new DefaultTableModel();
-                        resultsTable.setModel(model);
-                        resultsLabel.setText("");
+                        clearTables("");
+
                     }
                     break;
                 case 2:
@@ -67,7 +67,7 @@ public class MegabucksUI extends Component {
                     for (Object[] row : getList) {
                         summaryDefaultTableModel.addRow(row);
                     }
-                    resultsLabel.setText("Winning Ticket Report");
+                    resultsLabel.setText("Winning Tickets");
                     resultsTable.setModel(summaryDefaultTableModel);
                     break;
                 case 3:
@@ -87,9 +87,7 @@ public class MegabucksUI extends Component {
                 default:
                     JOptionPane.showMessageDialog(frame, "Unknown value. Please try again.", "Alert", JOptionPane.WARNING_MESSAGE);
                     System.out.println("Unknown value. Please try again.");
-                    DefaultTableModel model = new DefaultTableModel();
-                    resultsTable.setModel(model);
-                    resultsLabel.setText("");
+                    clearTables("");
             }
         });
 
@@ -176,6 +174,12 @@ public class MegabucksUI extends Component {
                 }
                 break;
         }
+    }
+
+    private void clearTables(String lableMessage) {
+        DefaultTableModel model = new DefaultTableModel();
+        resultsTable.setModel(model);
+        resultsLabel.setText(lableMessage);
     }
 
     /**

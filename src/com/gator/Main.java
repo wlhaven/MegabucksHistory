@@ -1,9 +1,7 @@
 package com.gator;
 
 import com.gator.gui.MegabucksUI;
-
 import javax.swing.*;
-
 import static javax.swing.SwingUtilities.invokeLater;
 
 public class Main extends JFrame {

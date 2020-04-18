@@ -7,7 +7,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
-
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -42,11 +41,12 @@ public class ReadData {
                 } catch (NoSuchElementException | NumberFormatException ex) {
                     ex.printStackTrace();
                     System.out.println("Exception parsing data: " + line);
+                    JOptionPane.showMessageDialog(frame, "ERROR: NoSuchElementException - value is:  " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     System.exit(0);
                 }
             }
         } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(frame, "ERROR: " + ex.getMessage(), "Alert", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "ERROR: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("Unable to open input file '" + fileName + "'" + "\nReturning to main menu.");
         } catch (IOException ex) {
             System.out.println("Error reading file '" + fileName + "'");
@@ -57,16 +57,16 @@ public class ReadData {
     public ArrayList<Object[]> WinningDraws() {
         var db = new Database();
         db.connect();
-        ArrayList<Object[]> getList = db.readTableData();
+        ArrayList<Object[]> list = db.readTableData();
         db.close();
-        return getList;
+        return list;
     }
 
     public ArrayList<Object[]> GetWinRate() {
         var db = new Database();
         db.connect();
-        ArrayList<Object[]> map = db.FrequencyData();
+        ArrayList<Object[]> list = db.FrequencyData();
         db.close();
-        return map;
+        return list;
     }
 }
