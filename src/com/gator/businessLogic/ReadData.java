@@ -4,9 +4,9 @@ import com.gator.database.Database;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
+import java.text.DecimalFormat;
+import java.util.*;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -14,8 +14,12 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public class ReadData {
     final JFrame frame;
+    final Database db;
+
     public ReadData() {
         frame = new JFrame();
+        db = new Database();
+        db.connect();
     }
 
     public ArrayList<Data> getData(File fileName) {
@@ -55,18 +59,60 @@ public class ReadData {
     }
 
     public ArrayList<Object[]> WinningDraws() {
-        var db = new Database();
-        db.connect();
         ArrayList<Object[]> list = db.readTableData();
         db.close();
         return list;
     }
 
     public ArrayList<Object[]> GetWinRate() {
-        var db = new Database();
-        db.connect();
         ArrayList<Object[]> list = db.FrequencyData();
         db.close();
         return list;
+    }
+
+    public int GetTotalRows() {
+        int count = db.getTableCount();
+        db.close();
+        return count;
+    }
+
+    public Map<Integer, ArrayList<Object[]>> GetValuesCount() {
+        int ballCount;
+        int ballValue;
+        String ballColumn;
+        HashMap<Integer, ArrayList<Object[]>> tmp = new HashMap<>() {
+        };
+        ArrayList<Object[]> list = new ArrayList<>();
+
+        for (ballCount = 1; ballCount < 7; ballCount++) {
+            ballColumn = "Ball" + ballCount;
+            for (ballValue = 1; ballValue <= 48; ballValue++) {
+                list.addAll(db.getRowValues(ballColumn, ballValue));
+            }
+            var tmpList = new ArrayList<>(list);
+            tmp.put(ballCount, tmpList);
+            list.clear();
+        }
+        db.close();
+        return tmp;
+    }
+
+    public ArrayList<Object[]> CreateValuesCount() {
+        ArrayList<Object[]> testData = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("0.00");
+        int getTotalRows = GetTotalRows();
+        var rows = new ReadData();
+        var map = rows.GetValuesCount();
+        for (var entry : map.entrySet()) {
+            for (int ballNumber = 0; ballNumber < 48; ballNumber++) {
+                Object[] tableRow = {entry.getKey(), (ballNumber + 1),
+                        Integer.parseInt(Arrays.toString(entry.getValue().get(ballNumber)).replaceAll("(^\\[|]|$)", "")),
+                        df.format(Float.parseFloat(Arrays.toString(entry.getValue().get(ballNumber)).replaceAll("(^\\[|]|$)", ""))
+                                / getTotalRows * 100)};
+                testData.add(tableRow);
+            }
+            System.out.println();
+        }
+        return testData;
     }
 }

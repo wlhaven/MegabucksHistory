@@ -1,5 +1,9 @@
 package com.gator.businessLogic;
 
+import com.gator.database.Database;
+
+import java.io.File;
+
 /**
  * Created by Wally Haven on 10/29/2019.
  */
@@ -14,6 +18,19 @@ public class Data {
     private final int result5;
     private final int result6;
     private final String winner;
+
+    public Data() {
+        this.date = null;
+        this.jackpot = 0;
+        this.draw = 0;
+        this.result1 = 0;
+        this.result2 = 0;
+        this.result3 = 0;
+        this.result4 = 0;
+        this.result5 = 0;
+        this.result6 = 0;
+        this.winner = null;
+    }
 
     public Data(String date, long jackpot, int draw, int result1, int result2, int result3, int result4, int result5, int result6, String winner) {
         this.date = date;
@@ -64,7 +81,24 @@ public class Data {
         return result6;
     }
 
-    public String getWinner() { return winner; }
+    public String getWinner() {
+        return winner;
+    }
+
+    public int InsertData(File filename) {
+        var totalRows = 0;
+        var readData = new ReadData();
+        var resultsList = readData.getData(filename);
+        if (resultsList.size() != 0) {
+            var db = new Database();
+            db.connect();
+            totalRows = db.SendData(resultsList);
+            System.out.println("Number of rows inserted = " + totalRows);
+            db.close();
+        }
+        return totalRows;
+    }
+
 
     @Override
     public String toString() {

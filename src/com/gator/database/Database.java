@@ -21,6 +21,7 @@ public class Database {
     private static final String INSERT_RESULTS_SQL = "{ call spInsertData(?,?,?,?,?,?,?,?,?,?) } ";
     private static final String GET_FREQUENCY_RESULTS = "{ call spGetWinFrequency(?) } ";
     private static final String GET_WINNING_RESULTS = "{ call spGetWinners() } ";
+    private static final String GET_TOTAL_ROWS = "select count(*) from History";
 
     public Database() {
         getConnectionInfo();
@@ -138,6 +139,40 @@ public class Database {
                         rs.getInt(9),
                         rs.getString(10)
                 };
+                testData.add(tableRow);
+            }
+        } catch (SQLException e) {
+            System.err.println("ERROR: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return testData;
+    }
+
+    public int getTableCount() {
+        int rowCount = 0;
+
+        try (
+                PreparedStatement stmt = mConnection.prepareStatement(GET_TOTAL_ROWS)
+        ) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                rowCount = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.err.println("ERROR: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return rowCount;
+    }
+
+    public ArrayList<Object[]> getRowValues(String ballValue, int ballCount) {
+        ArrayList<Object[]> testData = new ArrayList<>();
+        try (
+                PreparedStatement stmt = mConnection.prepareStatement("select count(*) from History where " + ballValue + " = " + ballCount)
+        ) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Object[] tableRow = {rs.getInt(1)};
                 testData.add(tableRow);
             }
         } catch (SQLException e) {

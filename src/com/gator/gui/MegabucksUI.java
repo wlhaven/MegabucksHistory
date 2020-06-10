@@ -2,7 +2,7 @@ package com.gator.gui;
 
 import com.gator.businessLogic.ReadData;
 import com.gator.businessLogic.ResultsDisplay;
-import com.gator.database.Database;
+import com.gator.businessLogic.Data;
 
 import java.awt.*;
 import javax.swing.*;
@@ -30,10 +30,10 @@ public class MegabucksUI extends Component {
     private JTable resultsTable;
     private JLabel resultsLabel;
     int reportID;
-    private DefaultTableModel summaryDefaultTableModel;
+    private DefaultTableModel resultsDefaultTableModel;
 
     public MegabucksUI() {
-        rootPanel.setPreferredSize(new Dimension(640, 480));
+        rootPanel.setPreferredSize(new Dimension(640, 500));
         rootPanel.setAlignmentX(100);
         SetupComboBox();
         reportComboBox.addActionListener(e -> {
@@ -43,21 +43,21 @@ public class MegabucksUI extends Component {
             JFrame frame = new JFrame();
             switch (reportID) {
                 case 1:
-                    clearTables("");
+                    clearTables();
+                    Data insertData = new Data();
                     JFileChooser fileChooser = new JFileChooser();
                     fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
                     int result = fileChooser.showOpenDialog(this);
                     if (result == JFileChooser.APPROVE_OPTION) {
                         File selectedFile = fileChooser.getSelectedFile();
-                        rowCount = InsertData(selectedFile);
+                        rowCount = insertData.InsertData(selectedFile);
                         if (rowCount > 0) {
                             JOptionPane.showMessageDialog(frame, "Successfully Inserted " + rowCount + " rows into the database", "Success", JOptionPane.WARNING_MESSAGE);
                             System.out.println("Selected file: " + selectedFile.getAbsolutePath());
                         }
                     } else {
                         JOptionPane.showMessageDialog(frame, "ERROR: Inserted " + rowCount + " rows into the database", "Alert", JOptionPane.WARNING_MESSAGE);
-                        clearTables("");
-
+                        clearTables();
                     }
                     break;
                 case 2:
@@ -65,29 +65,38 @@ public class MegabucksUI extends Component {
                     ArrayList<Object[]> getList = data.WinningDraws();
                     SetupTables(resultsTable, reportID);
                     for (Object[] row : getList) {
-                        summaryDefaultTableModel.addRow(row);
+                        resultsDefaultTableModel.addRow(row);
                     }
                     resultsLabel.setText("Winning Tickets");
-                    resultsTable.setModel(summaryDefaultTableModel);
+                    resultsTable.setModel(resultsDefaultTableModel);
                     break;
                 case 3:
                     var rate = new ReadData();
                     ArrayList<Object[]> getRateList = rate.GetWinRate();
                     SetupTables(resultsTable, reportID);
                     for (Object[] row : getRateList) {
-                        summaryDefaultTableModel.addRow(row);
+                        resultsDefaultTableModel.addRow(row);
                     }
                     resultsLabel.setText("Frequency Results");
-                    resultsTable.setModel(summaryDefaultTableModel);
+                    resultsTable.setModel(resultsDefaultTableModel);
                     break;
                 case 4:
+                    var valueCount = new ReadData();
+                    ArrayList<Object[]> getCount = valueCount.CreateValuesCount();
+                    SetupTables(resultsTable, reportID);
+                    for (Object[] row : getCount) {
+                        resultsDefaultTableModel.addRow(row);
+                    }
+                    resultsLabel.setText("Total times drawn");
+                    resultsTable.setModel(resultsDefaultTableModel);
+                    break;
+                case 5:
                     System.out.println("Goodbye and have a wonderful day!");
                     JOptionPane.showMessageDialog(frame, "Goodbye and have a wonderful day!", "Alert", JOptionPane.INFORMATION_MESSAGE);
                     System.exit(0);
+                    break;
                 default:
-                    JOptionPane.showMessageDialog(frame, "Unknown value. Please try again.", "Alert", JOptionPane.WARNING_MESSAGE);
-                    System.out.println("Unknown value. Please try again.");
-                    clearTables("");
+                    clearTables();
             }
         });
 
@@ -107,7 +116,7 @@ public class MegabucksUI extends Component {
         });
     }
 
-    public int InsertData(File filename) {
+   /* public int InsertData(File filename) {
         var totalRows = 0;
         var readData = new ReadData();
         var resultsList = readData.getData(filename);
@@ -119,7 +128,7 @@ public class MegabucksUI extends Component {
             db.close();
         }
         return totalRows;
-    }
+    }*/
 
     private void SetupComboBox() {
         ResultsDisplay resultsDisplay = new ResultsDisplay();
@@ -135,7 +144,7 @@ public class MegabucksUI extends Component {
 
         reportComboBox.setBackground(new Color(255, 255, 255));
         Object child = reportComboBox.getAccessibleContext().getAccessibleChild(0);
-        ((BasicComboPopup) child).getList().setSelectionBackground(new Color(151, 255, 47));
+        ((BasicComboPopup) child).getList().setSelectionBackground(new Color(219, 246, 160));
         // Need to prevent selection when using arrow keys
         reportComboBox.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
 
@@ -147,13 +156,13 @@ public class MegabucksUI extends Component {
 
     private void SetupTables(JTable resultsTable, int reportNumber) {
         ResultsDisplay resultsDisplay = new ResultsDisplay();
-        summaryDefaultTableModel = new DefaultTableModel() {
+        resultsDefaultTableModel = new DefaultTableModel() {
             public boolean isCellEditable(int row, int col) {
                 return false;
             }
         };
 
-        resultsTable.setModel(summaryDefaultTableModel);
+        resultsTable.setModel(resultsDefaultTableModel);
         resultsTable.setCellSelectionEnabled(false);
         resultsTable.setFocusable(false);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -162,24 +171,33 @@ public class MegabucksUI extends Component {
         switch (reportNumber) {
             case 1:
             case 2:
-                summaryDefaultTableModel.setColumnIdentifiers(resultsDisplay.getResultsColumnNames());
+                resultsTable.setBackground(new Color(219, 246, 160));
+                resultsDefaultTableModel.setColumnIdentifiers(resultsDisplay.getResultsColumnNames());
                 for (int i = 0; i < resultsDisplay.getResultsColumnNumber(); i++) {
                     resultsTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
                 }
                 break;
             case 3:
-                summaryDefaultTableModel.setColumnIdentifiers(resultsDisplay.getWinRateColumnNames());
+                resultsTable.setBackground(new Color(189, 212, 239));
+                resultsDefaultTableModel.setColumnIdentifiers(resultsDisplay.getWinRateColumnNames());
                 for (int i = 0; i < resultsDisplay.getWinRateColumnNumber(); i++) {
+                    resultsTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+                }
+                break;
+            case 4:
+                resultsTable.setBackground(new Color(162, 205, 151));
+                resultsDefaultTableModel.setColumnIdentifiers(resultsDisplay.getTimesDrawnColumnNames());
+                for (int i = 0; i < resultsDisplay.getTimesDrawnColumnNumber(); i++) {
                     resultsTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
                 }
                 break;
         }
     }
 
-    private void clearTables(String lableMessage) {
+    private void clearTables() {
         DefaultTableModel model = new DefaultTableModel();
         resultsTable.setModel(model);
-        resultsLabel.setText(lableMessage);
+        resultsLabel.setText("");
     }
 
     /**
