@@ -106,12 +106,11 @@ public class ReadData {
         for (var entry : map.entrySet()) {
             for (int ballNumber = 0; ballNumber < 48; ballNumber++) {
                 Object[] tableRow = {entry.getKey(), (ballNumber + 1),
-                        Integer.parseInt(Arrays.toString(entry.getValue().get(ballNumber)).replaceAll("(^\\[|]|$)", "")),
+                        Arrays.toString(entry.getValue().get(ballNumber)).replaceAll("(^\\[|]|$)", ""),
                         df.format(Float.parseFloat(Arrays.toString(entry.getValue().get(ballNumber)).replaceAll("(^\\[|]|$)", ""))
                                 / getTotalRows * 100)};
                 testData.add(tableRow);
             }
-            System.out.println();
         }
         return testData;
     }

@@ -1,7 +1,9 @@
 package com.gator;
 
-import com.gator.gui.MegabucksUI;
+import com.gator.gui.MegaBucksForm;
+
 import javax.swing.*;
+
 import static javax.swing.SwingUtilities.invokeLater;
 
 public class Main extends JFrame {
@@ -16,7 +18,7 @@ public class Main extends JFrame {
     public static void showReports() {
         uFrame.setTitle("Megabucks Reporting");
         uFrame.getContentPane().removeAll();
-        uFrame.getContentPane().add(new MegabucksUI().getRootPanel());
+        uFrame.getContentPane().add(new MegaBucksForm().getRootPanel());
         uFrame.setResizable(true);
         uFrame.pack();
         uFrame.setLocationRelativeTo(null);

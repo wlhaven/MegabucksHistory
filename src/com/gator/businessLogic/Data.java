@@ -99,7 +99,6 @@ public class Data {
         return totalRows;
     }
 
-
     @Override
     public String toString() {
         return String.format("%s \t%-10d\t%4d\t%6d\t%6d\t%6d\t%6d\t%6d\t%6d", date, jackpot, draw, result1, result2, result3, result4, result5, result6);
