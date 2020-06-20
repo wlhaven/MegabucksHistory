@@ -5,6 +5,7 @@
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
     <properties>
+      <foreground color="-1973791"/>
       <minimumSize width="30" height="50"/>
     </properties>
     <border type="none"/>
@@ -19,7 +20,7 @@
           <grid id="e8458" class="javax.swing.JMenu" binding="fileMenu" layout-manager="FlowLayout" hgap="1" vgap="5" flow-align="0">
             <constraints/>
             <properties>
-              <text value="File"/>
+              <text value="&amp;File"/>
             </properties>
             <border type="none"/>
             <children>
@@ -34,7 +35,9 @@
               <grid id="beea8" class="javax.swing.JMenuItem" binding="exitItem" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints/>
                 <properties>
-                  <text value="Exit"/>
+                  <actionCommand value="Exit"/>
+                  <label value="Exit"/>
+                  <text value="E&amp;xit"/>
                 </properties>
                 <border type="none"/>
                 <children/>
@@ -44,7 +47,7 @@
           <grid id="88d0f" class="javax.swing.JMenu" binding="reportMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
             <constraints/>
             <properties>
-              <text value="Reports"/>
+              <text value="&amp;Reports"/>
             </properties>
             <border type="none"/>
             <children>
@@ -79,7 +82,7 @@
       <grid id="26f0c" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="Center"/>
         <properties>
-          <foreground color="-1315861"/>
+          <foreground color="-1973791"/>
           <visible value="true"/>
         </properties>
         <border type="none"/>
@@ -87,7 +90,7 @@
           <grid id="bb382" binding="displayPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints border-constraint="Center"/>
             <properties>
-              <background color="-1"/>
+              <background color="-1973791"/>
               <opaque value="true"/>
               <preferredSize width="640" height="400"/>
             </properties>
@@ -116,12 +119,12 @@
                   <enabled value="false"/>
                   <minimumSize width="20" height="40"/>
                   <opaque value="false"/>
-                  <preferredSize width="510" height="400"/>
+                  <preferredSize width="600" height="400"/>
                   <verifyInputWhenFocusTarget value="false"/>
                   <verticalScrollBarPolicy value="20"/>
                   <visible value="false"/>
                 </properties>
-                <border type="empty"/>
+                <border type="line"/>
                 <children>
                   <component id="9d06d" class="javax.swing.JTable" binding="resultsTable">
                     <constraints/>

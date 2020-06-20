@@ -8,10 +8,6 @@ public class ResultsDisplay {
     public ResultsDisplay() {
     }
 
-    public String[] getReportColumnNames() {
-        return new String[]{"Available Actions"};
-    }
-
     public String[] getResultsColumnNames() {
         return new String[]{" Date ", " Jackpot ", "Draw", "Ball 1", "Ball2 ", "Ball 3", "Ball 4", "Ball 5", "Ball 6"};
     }
@@ -22,15 +18,6 @@ public class ResultsDisplay {
 
     public String[] getTimesDrawnColumnNames() {
         return new String[]{"Draw Position", "Ball Value", "Times drawn", "% of Total Draws"};
-    }
-
-    public String[] getReportChoices() {
-        return new String[]{
-                "Load History Data into the server",
-                "Get list of winning draws.",
-                "Get winning number frequency.",
-                "Total times number drawn",
-                "Exit"};
     }
 
     public int getWinRateColumnNumber() {
