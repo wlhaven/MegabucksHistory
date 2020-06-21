@@ -25,7 +25,6 @@ public class MegaBucksForm {
     private JMenuItem freqItem;
     private JTable resultsTable;
     private JLabel resultsLabel;
-    private JPanel displayPanel;
     private JScrollPane reportScrollPane;
     private JMenuItem timesDrawnItem;
     private DefaultTableModel resultsDefaultTableModel;
@@ -33,33 +32,6 @@ public class MegaBucksForm {
     public MegaBucksForm() {
         rootPanel.setPreferredSize(new Dimension(800, 600));
         rootPanel.setAlignmentX(100);
-
-        winnerItem.addActionListener(e -> {
-            clearTables();
-            var data = new ReadData();
-            ArrayList<Object[]> getList = data.WinningDraws();
-            reportScrollPane.setVisible(true);
-            resultsDefaultTableModel = SetupTables(resultsTable, 2);
-            for (Object[] row : getList) {
-                resultsDefaultTableModel.addRow(row);
-            }
-            resultsLabel.setText("Winning Tickets");
-            resultsTable.setModel(resultsDefaultTableModel);
-        });
-
-        exitItem.addActionListener(e -> System.exit(0));
-
-        freqItem.addActionListener(e -> {
-            var rate = new ReadData();
-            ArrayList<Object[]> getRateList = rate.GetWinRate();
-            SetupTables(resultsTable, 3);
-            reportScrollPane.setVisible(true);
-            for (Object[] row : getRateList) {
-                resultsDefaultTableModel.addRow(row);
-            }
-            resultsLabel.setText("Frequency Results");
-            resultsTable.setModel(resultsDefaultTableModel);
-        });
 
         importItem.addActionListener(e -> {
             int rowCount = 0;
@@ -84,6 +56,36 @@ public class MegaBucksForm {
             }
         });
 
+        exitItem.addActionListener(e -> System.exit(0));
+
+        winnerItem.addActionListener(e -> {
+            clearTables();
+            var data = new ReadData();
+            ArrayList<Object[]> getList = data.WinningDraws();
+            reportScrollPane.setVisible(true);
+            resultsDefaultTableModel = SetupTables(resultsTable, 2);
+            for (Object[] row : getList) {
+                resultsDefaultTableModel.addRow(row);
+            }
+            resultsLabel.setVisible(true);
+            resultsLabel.setText("Winning Tickets");
+            resultsTable.setModel(resultsDefaultTableModel);
+        });
+
+        freqItem.addActionListener(e -> {
+            var rate = new ReadData();
+            ArrayList<Object[]> getRateList = rate.GetWinRate();
+            SetupTables(resultsTable, 3);
+            reportScrollPane.setVisible(true);
+            for (Object[] row : getRateList) {
+                resultsDefaultTableModel.addRow(row);
+            }
+            resultsLabel.setVisible(true);
+            resultsLabel.setText("Frequency Results");
+            resultsTable.setModel(resultsDefaultTableModel);
+        });
+
+
         timesDrawnItem.addActionListener(e -> {
             var valueCount = new ReadData();
             ArrayList<Object[]> getCount = valueCount.CreateValuesCount();
@@ -92,6 +94,7 @@ public class MegaBucksForm {
             for (Object[] row : getCount) {
                 resultsDefaultTableModel.addRow(row);
             }
+            resultsLabel.setVisible(true);
             resultsLabel.setText("Total times drawn");
             resultsTable.setModel(resultsDefaultTableModel);
         });

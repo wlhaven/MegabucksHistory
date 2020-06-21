@@ -83,82 +83,37 @@
         <constraints border-constraint="Center"/>
         <properties>
           <foreground color="-1973791"/>
-          <preferredSize width="700" height="600"/>
+          <preferredSize width="640" height="480"/>
           <visible value="true"/>
         </properties>
         <border type="none"/>
         <children>
-          <grid id="bb382" binding="displayPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <component id="6358" class="javax.swing.JLabel" binding="resultsLabel">
             <constraints border-constraint="North"/>
             <properties>
-              <background color="-1973791"/>
-              <opaque value="true"/>
-              <preferredSize width="700" height="500"/>
+              <font name="Consolas" size="14" style="1"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <maximumSize width="233" height="20"/>
+              <minimumSize width="233" height="20"/>
+              <preferredSize width="233" height="20"/>
+              <text value=""/>
+              <verifyInputWhenFocusTarget value="true"/>
+              <verticalTextPosition value="1"/>
+              <visible value="false"/>
             </properties>
+          </component>
+          <scrollpane id="848a0" binding="reportScrollPane">
+            <constraints border-constraint="Center"/>
+            <properties/>
             <border type="none"/>
             <children>
-              <component id="6358" class="javax.swing.JLabel" binding="resultsLabel">
-                <constraints border-constraint="North"/>
-                <properties>
-                  <font name="Consolas" size="14" style="1"/>
-                  <horizontalAlignment value="0"/>
-                  <horizontalTextPosition value="0"/>
-                  <labelFor value="402bc"/>
-                  <maximumSize width="233" height="20"/>
-                  <minimumSize width="233" height="20"/>
-                  <preferredSize width="233" height="20"/>
-                  <text value=""/>
-                  <verifyInputWhenFocusTarget value="true"/>
-                  <verticalTextPosition value="1"/>
-                </properties>
+              <component id="fb32c" class="javax.swing.JTable" binding="resultsTable">
+                <constraints/>
+                <properties/>
               </component>
-              <scrollpane id="402bc" binding="reportScrollPane">
-                <constraints border-constraint="Center"/>
-                <properties>
-                  <autoscrolls value="true"/>
-                  <background color="-1"/>
-                  <enabled value="true"/>
-                  <minimumSize width="20" height="20"/>
-                  <opaque value="true"/>
-                  <preferredSize width="500" height="500"/>
-                  <verifyInputWhenFocusTarget value="false"/>
-                  <verticalScrollBarPolicy value="20"/>
-                  <visible value="false"/>
-                </properties>
-                <border type="line"/>
-                <children>
-                  <component id="9d06d" class="javax.swing.JTable" binding="resultsTable">
-                    <constraints/>
-                    <properties>
-                      <autoCreateColumnsFromModel value="true"/>
-                      <autoResizeMode value="2"/>
-                      <autoscrolls value="true"/>
-                      <background color="-1"/>
-                      <enabled value="true"/>
-                      <fillsViewportHeight value="false"/>
-                      <focusCycleRoot value="false"/>
-                      <font swing-font="TableHeader.font"/>
-                      <foreground color="-12828863"/>
-                      <gridColor color="-14385122"/>
-                      <intercellSpacing width="1" height="3"/>
-                      <maximumSize width="2147483647" height="400"/>
-                      <minimumSize width="30" height="40"/>
-                      <opaque value="true"/>
-                      <preferredScrollableViewportSize width="480" height="250"/>
-                      <preferredSize width="350" height="500"/>
-                      <rowMargin value="3"/>
-                      <rowSelectionAllowed value="false"/>
-                      <showHorizontalLines value="true"/>
-                      <showVerticalLines value="true"/>
-                      <updateSelectionOnSort value="false"/>
-                      <verifyInputWhenFocusTarget value="false"/>
-                      <visible value="true"/>
-                    </properties>
-                  </component>
-                </children>
-              </scrollpane>
             </children>
-          </grid>
+          </scrollpane>
         </children>
       </grid>
     </children>
