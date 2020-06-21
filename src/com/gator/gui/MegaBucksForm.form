@@ -83,21 +83,22 @@
         <constraints border-constraint="Center"/>
         <properties>
           <foreground color="-1973791"/>
+          <preferredSize width="700" height="600"/>
           <visible value="true"/>
         </properties>
         <border type="none"/>
         <children>
-          <grid id="bb382" binding="displayPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
-            <constraints border-constraint="Center"/>
+          <grid id="bb382" binding="displayPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="North"/>
             <properties>
               <background color="-1973791"/>
               <opaque value="true"/>
-              <preferredSize width="640" height="400"/>
+              <preferredSize width="700" height="500"/>
             </properties>
             <border type="none"/>
             <children>
               <component id="6358" class="javax.swing.JLabel" binding="resultsLabel">
-                <constraints/>
+                <constraints border-constraint="North"/>
                 <properties>
                   <font name="Consolas" size="14" style="1"/>
                   <horizontalAlignment value="0"/>
@@ -112,14 +113,14 @@
                 </properties>
               </component>
               <scrollpane id="402bc" binding="reportScrollPane">
-                <constraints/>
+                <constraints border-constraint="Center"/>
                 <properties>
-                  <autoscrolls value="false"/>
+                  <autoscrolls value="true"/>
                   <background color="-1"/>
-                  <enabled value="false"/>
-                  <minimumSize width="20" height="40"/>
-                  <opaque value="false"/>
-                  <preferredSize width="600" height="400"/>
+                  <enabled value="true"/>
+                  <minimumSize width="20" height="20"/>
+                  <opaque value="true"/>
+                  <preferredSize width="500" height="500"/>
                   <verifyInputWhenFocusTarget value="false"/>
                   <verticalScrollBarPolicy value="20"/>
                   <visible value="false"/>
@@ -131,7 +132,7 @@
                     <properties>
                       <autoCreateColumnsFromModel value="true"/>
                       <autoResizeMode value="2"/>
-                      <autoscrolls value="false"/>
+                      <autoscrolls value="true"/>
                       <background color="-1"/>
                       <enabled value="true"/>
                       <fillsViewportHeight value="false"/>
@@ -140,16 +141,17 @@
                       <foreground color="-12828863"/>
                       <gridColor color="-14385122"/>
                       <intercellSpacing width="1" height="3"/>
-                      <maximumSize width="2147483647" height="100"/>
+                      <maximumSize width="2147483647" height="400"/>
                       <minimumSize width="30" height="40"/>
                       <opaque value="true"/>
-                      <preferredScrollableViewportSize width="500" height="250"/>
-                      <preferredSize width="200" height="500"/>
+                      <preferredScrollableViewportSize width="480" height="250"/>
+                      <preferredSize width="350" height="500"/>
                       <rowMargin value="3"/>
                       <rowSelectionAllowed value="false"/>
                       <showHorizontalLines value="true"/>
                       <showVerticalLines value="true"/>
-                      <updateSelectionOnSort value="true"/>
+                      <updateSelectionOnSort value="false"/>
+                      <verifyInputWhenFocusTarget value="false"/>
                       <visible value="true"/>
                     </properties>
                   </component>

@@ -31,7 +31,7 @@ public class MegaBucksForm {
     private DefaultTableModel resultsDefaultTableModel;
 
     public MegaBucksForm() {
-        rootPanel.setPreferredSize(new Dimension(640, 500));
+        rootPanel.setPreferredSize(new Dimension(800, 600));
         rootPanel.setAlignmentX(100);
 
         winnerItem.addActionListener(e -> {
