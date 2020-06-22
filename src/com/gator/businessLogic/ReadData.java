@@ -70,6 +70,12 @@ public class ReadData {
         return list;
     }
 
+    public ArrayList<Object[]> GetWinRateByDraw(int position) {
+        ArrayList<Object[]> list = db.FrequencyByDraw(position);
+        db.close();
+        return list;
+    }
+
     public int GetTotalRows() {
         int count = db.getTableCount();
         db.close();
@@ -97,12 +103,48 @@ public class ReadData {
         return tmp;
     }
 
+    public Map<Integer, ArrayList<Object[]>> GetValuesCount(int location) {
+        int ballValue;
+        String ballColumn;
+        HashMap<Integer, ArrayList<Object[]>> tmp = new HashMap<>() {
+        };
+        ArrayList<Object[]> list = new ArrayList<>();
+
+        ballColumn = "Ball" + location;
+        for (ballValue = 1; ballValue <= 48; ballValue++) {
+            list.addAll(db.getRowValues(ballColumn, ballValue));
+        }
+        var tmpList = new ArrayList<>(list);
+        tmp.put(location, tmpList);
+        list.clear();
+        db.close();
+        return tmp;
+    }
+
     public ArrayList<Object[]> CreateValuesCount() {
         ArrayList<Object[]> testData = new ArrayList<>();
         DecimalFormat df = new DecimalFormat("0.00");
         int getTotalRows = GetTotalRows();
         var rows = new ReadData();
         var map = rows.GetValuesCount();
+        for (var entry : map.entrySet()) {
+            for (int ballNumber = 0; ballNumber < 48; ballNumber++) {
+                Object[] tableRow = {entry.getKey(), (ballNumber + 1),
+                        Arrays.toString(entry.getValue().get(ballNumber)).replaceAll("(^\\[|]|$)", ""),
+                        df.format(Float.parseFloat(Arrays.toString(entry.getValue().get(ballNumber)).replaceAll("(^\\[|]|$)", ""))
+                                / getTotalRows * 100)};
+                testData.add(tableRow);
+            }
+        }
+        return testData;
+    }
+
+    public ArrayList<Object[]> CreateValuesCountByDraw(int location) {
+        ArrayList<Object[]> testData = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("0.00");
+        int getTotalRows = GetTotalRows();
+        var rows = new ReadData();
+        var map = rows.GetValuesCount(location);
         for (var entry : map.entrySet()) {
             for (int ballNumber = 0; ballNumber < 48; ballNumber++) {
                 Object[] tableRow = {entry.getKey(), (ballNumber + 1),

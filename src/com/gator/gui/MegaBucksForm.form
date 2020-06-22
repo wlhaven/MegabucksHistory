@@ -27,7 +27,7 @@
               <grid id="7efcf" class="javax.swing.JMenuItem" binding="importItem" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints/>
                 <properties>
-                  <text value="Import Data"/>
+                  <text value="I&amp;mport Data"/>
                 </properties>
                 <border type="none"/>
                 <children/>
@@ -47,14 +47,14 @@
           <grid id="88d0f" class="javax.swing.JMenu" binding="reportMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
             <constraints/>
             <properties>
-              <text value="&amp;Reports"/>
+              <text value="&amp;Summary Reports"/>
             </properties>
             <border type="none"/>
             <children>
               <grid id="193bc" class="javax.swing.JMenuItem" binding="winnerItem" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints/>
                 <properties>
-                  <text value="List of Winners"/>
+                  <text value="&amp;List of Winners"/>
                 </properties>
                 <border type="none"/>
                 <children/>
@@ -62,7 +62,7 @@
               <grid id="63e92" class="javax.swing.JMenuItem" binding="freqItem" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
                 <constraints/>
                 <properties>
-                  <text value="Winning Frequency"/>
+                  <text value="&amp;Winning Frequency"/>
                 </properties>
                 <border type="none"/>
                 <children/>
@@ -70,7 +70,32 @@
               <grid id="4a0ea" class="javax.swing.JMenuItem" binding="timesDrawnItem" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints/>
                 <properties>
-                  <text value="Total times number drawn"/>
+                  <text value="Total &amp;Count number drawn"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+          <grid id="ba4f0" class="javax.swing.JMenu" binding="drawReports" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+            <constraints/>
+            <properties>
+              <text value="&amp;Draw Reports"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="b8baf" class="javax.swing.JMenuItem" binding="freqByDrawItem" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+                <constraints/>
+                <properties>
+                  <text value="W&amp;in Frequency By  Draw"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="89629" class="javax.swing.JMenuItem" binding="timesDrawnByBall" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties>
+                  <text value="&amp;Total Count By Draw"/>
                 </properties>
                 <border type="none"/>
                 <children/>

@@ -27,6 +27,9 @@ public class MegaBucksForm {
     private JLabel resultsLabel;
     private JScrollPane reportScrollPane;
     private JMenuItem timesDrawnItem;
+    private JMenu drawReports;
+    private JMenuItem freqByDrawItem;
+    private JMenuItem timesDrawnByBall;
     private DefaultTableModel resultsDefaultTableModel;
 
     public MegaBucksForm() {
@@ -97,6 +100,63 @@ public class MegaBucksForm {
             resultsLabel.setVisible(true);
             resultsLabel.setText("Total times drawn");
             resultsTable.setModel(resultsDefaultTableModel);
+        });
+
+        freqByDrawItem.addActionListener(e -> {
+            JFrame frame = new JFrame();
+            int position;
+            String location = (String) JOptionPane.showInputDialog(
+                    frame,
+                    "Select a draw position from 1 to 6",
+                    "Draw Position",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    "1");
+            position = Integer.parseInt(location);
+            if (position < 1 || position > 6) {
+                JOptionPane.showMessageDialog(frame, "ERROR: Draw position must be between 1 and 6", "Alert", JOptionPane.WARNING_MESSAGE);
+            } else {
+                var rate = new ReadData();
+                ArrayList<Object[]> getRateList = rate.GetWinRateByDraw(position);
+                SetupTables(resultsTable, 3);
+                reportScrollPane.setVisible(true);
+                for (Object[] row : getRateList) {
+                    resultsDefaultTableModel.addRow(row);
+                }
+                resultsLabel.setVisible(true);
+                resultsLabel.setText("Frequency Results");
+                resultsTable.setModel(resultsDefaultTableModel);
+            }
+
+        });
+
+        timesDrawnByBall.addActionListener(e -> {
+            JFrame frame = new JFrame();
+            int position;
+            String location = (String) JOptionPane.showInputDialog(
+                    frame,
+                    "Select a draw position from 1 to 6",
+                    "Draw Position",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    "1");
+            position = Integer.parseInt(location);
+            if (position < 1 || position > 6) {
+                JOptionPane.showMessageDialog(frame, "ERROR: Draw position must be between 1 and 6", "Alert", JOptionPane.WARNING_MESSAGE);
+            } else {
+                var valueCount = new ReadData();
+                ArrayList<Object[]> getCount = valueCount.CreateValuesCountByDraw(position);
+                reportScrollPane.setVisible(true);
+                SetupTables(resultsTable, 4);
+                for (Object[] row : getCount) {
+                    resultsDefaultTableModel.addRow(row);
+                }
+                resultsLabel.setVisible(true);
+                resultsLabel.setText("Total times drawn");
+                resultsTable.setModel(resultsDefaultTableModel);
+            }
         });
     }
 

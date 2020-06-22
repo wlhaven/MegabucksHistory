@@ -120,6 +120,25 @@ public class Database {
         return winList;
     }
 
+    public ArrayList<Object[]> FrequencyByDraw(int location) {
+        ArrayList<Object[]> winList = new ArrayList<>();
+        try {
+
+            CallableStatement itemQuery = mConnection.prepareCall(GET_FREQUENCY_RESULTS);
+            itemQuery.setInt(1, location);
+            ResultSet rs = itemQuery.executeQuery();
+            while (rs.next()) {
+                Object[] rate = {location, rs.getString(1), rs.getString(2)};
+                winList.add(rate);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            close();
+        }
+        return winList;
+    }
+
     public ArrayList<Object[]> readTableData() {
         ArrayList<Object[]> testData = new ArrayList<>();
         try (
