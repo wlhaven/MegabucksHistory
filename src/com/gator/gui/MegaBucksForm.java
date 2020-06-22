@@ -177,7 +177,7 @@ public class MegaBucksForm {
         switch (reportNumber) {
             case 1:
             case 2:
-                resultsTable.setBackground(new Color(255, 255, 255));
+                resultsTable.setBackground(new Color(239, 231, 231, 139));
                 resultsDefaultTableModel.setColumnIdentifiers(resultsDisplay.getResultsColumnNames());
                 for (int i = 0; i < resultsDisplay.getResultsColumnNumber(); i++) {
                     resultsTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
