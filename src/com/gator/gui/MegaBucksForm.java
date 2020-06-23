@@ -62,7 +62,6 @@ public class MegaBucksForm {
         exitItem.addActionListener(e -> System.exit(0));
 
         winnerItem.addActionListener(e -> {
-            clearTables();
             var data = new ReadData();
             ArrayList<Object[]> getList = data.WinningDraws();
             reportScrollPane.setVisible(true);
@@ -105,28 +104,33 @@ public class MegaBucksForm {
         freqByDrawItem.addActionListener(e -> {
             JFrame frame = new JFrame();
             int position;
-            String location = (String) JOptionPane.showInputDialog(
-                    frame,
-                    "Select a draw position from 1 to 6",
-                    "Draw Position",
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    null,
-                    "1");
-            position = Integer.parseInt(location);
-            if (position < 1 || position > 6) {
-                JOptionPane.showMessageDialog(frame, "ERROR: Draw position must be between 1 and 6", "Alert", JOptionPane.WARNING_MESSAGE);
-            } else {
-                var rate = new ReadData();
-                ArrayList<Object[]> getRateList = rate.GetWinRateByDraw(position);
-                SetupTables(resultsTable, 3);
-                reportScrollPane.setVisible(true);
-                for (Object[] row : getRateList) {
-                    resultsDefaultTableModel.addRow(row);
+            try {
+                String location = (String) JOptionPane.showInputDialog(
+                        frame,
+                        "Select a draw position from 1 to 6",
+                        "Draw Position",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "1");
+
+                position = Integer.parseInt(location);
+                if (position < 1 || position > 6) {
+                    JOptionPane.showMessageDialog(frame, "ERROR: Draw position must be between 1 and 6", "ERROR", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    var rate = new ReadData();
+                    ArrayList<Object[]> getRateList = rate.GetWinRateByDraw(position);
+                    SetupTables(resultsTable, 3);
+                    reportScrollPane.setVisible(true);
+                    for (Object[] row : getRateList) {
+                        resultsDefaultTableModel.addRow(row);
+                    }
+                    resultsLabel.setVisible(true);
+                    resultsLabel.setText("Frequency Results");
+                    resultsTable.setModel(resultsDefaultTableModel);
                 }
-                resultsLabel.setVisible(true);
-                resultsLabel.setText("Frequency Results");
-                resultsTable.setModel(resultsDefaultTableModel);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "ERROR: Draw position must be a numerical value between 1 and 6", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
 
         });
@@ -134,28 +138,32 @@ public class MegaBucksForm {
         timesDrawnByBall.addActionListener(e -> {
             JFrame frame = new JFrame();
             int position;
-            String location = (String) JOptionPane.showInputDialog(
-                    frame,
-                    "Select a draw position from 1 to 6",
-                    "Draw Position",
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    null,
-                    "1");
-            position = Integer.parseInt(location);
-            if (position < 1 || position > 6) {
-                JOptionPane.showMessageDialog(frame, "ERROR: Draw position must be between 1 and 6", "Alert", JOptionPane.WARNING_MESSAGE);
-            } else {
-                var valueCount = new ReadData();
-                ArrayList<Object[]> getCount = valueCount.CreateValuesCountByDraw(position);
-                reportScrollPane.setVisible(true);
-                SetupTables(resultsTable, 4);
-                for (Object[] row : getCount) {
-                    resultsDefaultTableModel.addRow(row);
+            try {
+                String location = (String) JOptionPane.showInputDialog(
+                        frame,
+                        "Select a draw position from 1 to 6",
+                        "Draw Position",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "1");
+                position = Integer.parseInt(location);
+                if (position < 1 || position > 6) {
+                    JOptionPane.showMessageDialog(frame, "ERROR: Draw position must be between 1 and 6", "ERROR", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    var valueCount = new ReadData();
+                    ArrayList<Object[]> getCount = valueCount.CreateValuesCountByDraw(position);
+                    reportScrollPane.setVisible(true);
+                    SetupTables(resultsTable, 4);
+                    for (Object[] row : getCount) {
+                        resultsDefaultTableModel.addRow(row);
+                    }
+                    resultsLabel.setVisible(true);
+                    resultsLabel.setText("Total times drawn");
+                    resultsTable.setModel(resultsDefaultTableModel);
                 }
-                resultsLabel.setVisible(true);
-                resultsLabel.setText("Total times drawn");
-                resultsTable.setModel(resultsDefaultTableModel);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "ERROR: Draw position must be a numerical value between 1 and 6", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

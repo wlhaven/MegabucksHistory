@@ -131,11 +131,13 @@
           <scrollpane id="848a0" binding="reportScrollPane">
             <constraints border-constraint="Center"/>
             <properties/>
-            <border type="none"/>
+            <border type="bevel-lowered"/>
             <children>
               <component id="fb32c" class="javax.swing.JTable" binding="resultsTable">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <opaque value="false"/>
+                </properties>
               </component>
             </children>
           </scrollpane>
