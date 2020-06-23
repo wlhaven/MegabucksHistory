@@ -31,6 +31,9 @@ public class MegaBucksForm {
     private JMenuItem freqByDrawItem;
     private JMenuItem timesDrawnByBall;
     private DefaultTableModel resultsDefaultTableModel;
+    static final int GRAY_BACKGROUND = 2;
+    static final int LIGHTBLUE_BACKGROUND = 3;
+    static final int GREEN_BACKGROUND = 4;
 
     public MegaBucksForm() {
         rootPanel.setPreferredSize(new Dimension(800, 600));
@@ -65,7 +68,7 @@ public class MegaBucksForm {
             var data = new ReadData();
             ArrayList<Object[]> getList = data.WinningDraws();
             reportScrollPane.setVisible(true);
-            resultsDefaultTableModel = SetupTables(resultsTable, 2);
+            resultsDefaultTableModel = SetupTables(resultsTable, GRAY_BACKGROUND);
             for (Object[] row : getList) {
                 resultsDefaultTableModel.addRow(row);
             }
@@ -77,7 +80,7 @@ public class MegaBucksForm {
         freqItem.addActionListener(e -> {
             var rate = new ReadData();
             ArrayList<Object[]> getRateList = rate.GetWinRate();
-            SetupTables(resultsTable, 3);
+            SetupTables(resultsTable, LIGHTBLUE_BACKGROUND);
             reportScrollPane.setVisible(true);
             for (Object[] row : getRateList) {
                 resultsDefaultTableModel.addRow(row);
@@ -87,12 +90,11 @@ public class MegaBucksForm {
             resultsTable.setModel(resultsDefaultTableModel);
         });
 
-
         timesDrawnItem.addActionListener(e -> {
             var valueCount = new ReadData();
             ArrayList<Object[]> getCount = valueCount.CreateValuesCount();
             reportScrollPane.setVisible(true);
-            SetupTables(resultsTable, 4);
+            SetupTables(resultsTable, GREEN_BACKGROUND);
             for (Object[] row : getCount) {
                 resultsDefaultTableModel.addRow(row);
             }
@@ -120,7 +122,7 @@ public class MegaBucksForm {
                 } else {
                     var rate = new ReadData();
                     ArrayList<Object[]> getRateList = rate.GetWinRateByDraw(position);
-                    SetupTables(resultsTable, 3);
+                    SetupTables(resultsTable, LIGHTBLUE_BACKGROUND);
                     reportScrollPane.setVisible(true);
                     for (Object[] row : getRateList) {
                         resultsDefaultTableModel.addRow(row);
@@ -132,7 +134,6 @@ public class MegaBucksForm {
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(frame, "ERROR: Draw position must be a numerical value between 1 and 6", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-
         });
 
         timesDrawnByBall.addActionListener(e -> {
@@ -154,7 +155,7 @@ public class MegaBucksForm {
                     var valueCount = new ReadData();
                     ArrayList<Object[]> getCount = valueCount.CreateValuesCountByDraw(position);
                     reportScrollPane.setVisible(true);
-                    SetupTables(resultsTable, 4);
+                    SetupTables(resultsTable, GREEN_BACKGROUND);
                     for (Object[] row : getCount) {
                         resultsDefaultTableModel.addRow(row);
                     }
