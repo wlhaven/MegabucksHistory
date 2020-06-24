@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Debug (Launch) - Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Main<MegabucksHistory_ad6be668>",
+      "request": "launch",
+      "mainClass": "com.gator.Main",
+      "projectName": "MegabucksHistory_ad6be668"
+    }
+  ]
+}

@@ -82,7 +82,7 @@ public class ReadData {
         return count;
     }
 
-    public Map<Integer, ArrayList<Object[]>> GetValuesCount() {
+    public Map<Integer, ArrayList<Object[]>> GetValuesCount(int location) {
         int ballCount;
         int ballValue;
         String ballColumn;
@@ -90,61 +90,34 @@ public class ReadData {
         };
         ArrayList<Object[]> list = new ArrayList<>();
 
-        for (ballCount = 1; ballCount < 7; ballCount++) {
-            ballColumn = "Ball" + ballCount;
+        if (location != 0) {
+            ballColumn = "Ball" + location;
             for (ballValue = 1; ballValue <= 48; ballValue++) {
                 list.addAll(db.getRowValues(ballColumn, ballValue));
             }
-            var tmpList = new ArrayList<>(list);
-            tmp.put(ballCount, tmpList);
-            list.clear();
-        }
-        db.close();
-        return tmp;
-    }
-
-    public Map<Integer, ArrayList<Object[]>> GetValuesCount(int location) {
-        int ballValue;
-        String ballColumn;
-        HashMap<Integer, ArrayList<Object[]>> tmp = new HashMap<>() {
-        };
-        ArrayList<Object[]> list = new ArrayList<>();
-
-        ballColumn = "Ball" + location;
-        for (ballValue = 1; ballValue <= 48; ballValue++) {
-            list.addAll(db.getRowValues(ballColumn, ballValue));
-        }
-        var tmpList = new ArrayList<>(list);
-        tmp.put(location, tmpList);
-        list.clear();
-        db.close();
-        return tmp;
-    }
-
-    public ArrayList<Object[]> CreateValuesCount() {
-        ArrayList<Object[]> testData = new ArrayList<>();
-        DecimalFormat df = new DecimalFormat("0.00");
-        int getTotalRows = GetTotalRows();
-        var rows = new ReadData();
-        var map = rows.GetValuesCount();
-        for (var entry : map.entrySet()) {
-            for (int ballNumber = 0; ballNumber < 48; ballNumber++) {
-                Object[] tableRow = {entry.getKey(), (ballNumber + 1),
-                        Arrays.toString(entry.getValue().get(ballNumber)).replaceAll("(^\\[|]|$)", ""),
-                        df.format(Float.parseFloat(Arrays.toString(entry.getValue().get(ballNumber)).replaceAll("(^\\[|]|$)", ""))
-                                / getTotalRows * 100)};
-                testData.add(tableRow);
+            tmp.put(location, list);
+        } else {
+            for (ballCount = 1; ballCount < 7; ballCount++) {
+                ballColumn = "Ball" + ballCount;
+                for (ballValue = 1; ballValue <= 48; ballValue++) {
+                    list.addAll(db.getRowValues(ballColumn, ballValue));
+                }
+                var tmpList = new ArrayList<>(list);
+                tmp.put(ballCount, tmpList);
+                list.clear();
             }
         }
-        return testData;
+        db.close();
+        return tmp;
     }
 
-    public ArrayList<Object[]> CreateValuesCountByDraw(int location) {
+    public ArrayList<Object[]> CreateValuesCount(int location) {
         ArrayList<Object[]> testData = new ArrayList<>();
+        Map<Integer, ArrayList<Object[]>> map;
         DecimalFormat df = new DecimalFormat("0.00");
         int getTotalRows = GetTotalRows();
         var rows = new ReadData();
-        var map = rows.GetValuesCount(location);
+        map = rows.GetValuesCount(location);
         for (var entry : map.entrySet()) {
             for (int ballNumber = 0; ballNumber < 48; ballNumber++) {
                 Object[] tableRow = {entry.getKey(), (ballNumber + 1),

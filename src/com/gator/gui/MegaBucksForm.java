@@ -92,7 +92,8 @@ public class MegaBucksForm {
 
         timesDrawnItem.addActionListener(e -> {
             var valueCount = new ReadData();
-            ArrayList<Object[]> getCount = valueCount.CreateValuesCount();
+            int location = 0;
+            ArrayList<Object[]> getCount = valueCount.CreateValuesCount(location);
             reportScrollPane.setVisible(true);
             SetupTables(resultsTable, GREEN_BACKGROUND);
             for (Object[] row : getCount) {
@@ -153,7 +154,7 @@ public class MegaBucksForm {
                     JOptionPane.showMessageDialog(frame, "ERROR: Draw position must be between 1 and 6", "ERROR", JOptionPane.ERROR_MESSAGE);
                 } else {
                     var valueCount = new ReadData();
-                    ArrayList<Object[]> getCount = valueCount.CreateValuesCountByDraw(position);
+                    ArrayList<Object[]> getCount = valueCount.CreateValuesCount(position);
                     reportScrollPane.setVisible(true);
                     SetupTables(resultsTable, GREEN_BACKGROUND);
                     for (Object[] row : getCount) {
